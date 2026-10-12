@@ -1,0 +1,14 @@
+services:
+  hawkeye:
+    build: .
+    container_name: hawkeye
+    ports:
+      - "8765:8765"
+    environment:
+      OLLAMA_URL: http://host.docker.internal:11434/api/generate
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data.json:/app/data.json
+      - ./analysis-cache.json:/app/analysis-cache.json
+    restart: unless-stopped
